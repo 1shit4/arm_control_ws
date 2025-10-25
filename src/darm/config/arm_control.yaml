@@ -6,15 +6,15 @@ controller_manager:
       type: joint_state_broadcaster/JointStateBroadcaster
 
     yaw_effort_controller:
-      type: joint_trajectory_controller/JointTrajectoryController
+      type: effort_controllers/JointGroupEffortController
 
     pitch_effort_controller:
-      type: joint_trajectory_controller/JointTrajectoryController
+      type: effort_controllers/JointGroupEffortController
 
 yaw_effort_controller:
   ros__parameters:
     joints:
-      - joint1
+      - arm_rev
     command_interfaces:
       - effort
     state_interfaces:
@@ -27,7 +27,7 @@ yaw_effort_controller:
 pitch_effort_controller:
   ros__parameters:
     joints:
-      - joint2
+      - claw1_rev
     command_interfaces:
       - effort
     state_interfaces:

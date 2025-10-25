@@ -4,7 +4,10 @@ setup.py
 config/arm_control.yaml
 config/arm_p_control.yaml
 darm/__init__.py
+darm/dynamic_pid_ros2.py
+darm/offboard_pid.py
 darm/sanity_tester.py
+darm/u_shape_traj_ros2.py
 darm.egg-info/PKG-INFO
 darm.egg-info/SOURCES.txt
 darm.egg-info/dependency_links.txt
@@ -145,6 +148,10 @@ models/x500_base/meshes/5010Base.dae
 models/x500_base/meshes/5010Bell.dae
 models/x500_base/meshes/CF.png
 models/x500_base/meshes/NXP-HGD-CF.dae
+models/x500_base/meshes/arm_link.stl
+models/x500_base/meshes/base_link.stl
+models/x500_base/meshes/claw1_link.stl
+models/x500_base/meshes/claw2_link.stl
 models/x500_base/thumbnails/1.png
 models/x500_base/thumbnails/2.png
 models/x500_base/thumbnails/3.png

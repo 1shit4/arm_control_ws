@@ -43,7 +43,7 @@ def generate_launch_description():
         [
             FindPackageShare('darm'),
             'config',
-            'arm_p_control.yaml',
+            'arm_control.yaml',
         ]
     )
     rsp = Node(
@@ -124,13 +124,13 @@ def generate_launch_description():
             Node(
                 package='controller_manager',
                 executable='spawner',
-                arguments=['yaw_position_controller', '--param-file' , robot_controllers],
+                arguments=['yaw_effort_controller', '--param-file' , robot_controllers],
                 output='screen'
             ),
             Node(
                 package='controller_manager',
                 executable='spawner',
-                arguments=['pitch_position_controller', '--param-file', robot_controllers],
+                arguments=['pitch_effort_controller', '--param-file', robot_controllers],
                 output='screen'
             )
         ]

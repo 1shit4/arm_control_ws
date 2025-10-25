@@ -201,98 +201,184 @@
 
 
 <!-- ARM  -->
-  <link name="arm_link">
+
+ <link
+    name="arm_link">
+    <inertial>
+      <origin
+        xyz="-0.000914795426225395 -0.00555454895196864 -0.110946439422579"
+        rpy="0 0 0" />
+      <mass
+        value="0.0657523999494041" />
+      <inertia
+        ixx="0.000309254167993113"
+        ixy="-3.1320330373311E-07"
+        ixz="-6.25537879411743E-06"
+        iyy="0.000315762751117713"
+        iyz="-1.52579272127627E-05"
+        izz="1.17649990461412E-05" />
+    </inertial>
     <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
       <geometry>
-          <box size="0.03 0.03 0.002"/>
+        <mesh
+          filename="${mesh_prefix}/x500_base/meshes/arm_link.stl" />
       </geometry>
-      <material name="orange"/>
+      <material
+        name="">
+        <color
+          rgba="0.698039215686274 0.698039215686274 0.698039215686274 1" />
+      </material>
     </visual>
     <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
       <geometry>
-         <box size="0.03 0.03 0.002"/>
+        <mesh
+          filename="${mesh_prefix}/x500_base/meshes/arm_link.stl" />
       </geometry>
     </collision>
+  </link>
+  <joint
+    name="arm_rev"
+    type="revolute">
+    <origin
+      xyz="0.069625 0 -0.01711"
+      rpy="1.5958 0 -1.5708" />
+    <parent
+      link="base_link" />
+    <child
+      link="arm_link" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      lower="-1.57"
+      upper="1.57"
+      effort="1"
+      velocity="5" />
+  </joint>
+  <link
+    name="claw1_link">
     <inertial>
-        <mass value="0.100"/>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-        <xacro:box_inertia m="0.1" x="0.03" y="0.03" z="0.002"/>
+      <origin
+        xyz="-7.55789370638152E-07 -0.0133159097095163 -0.151277704248013"
+        rpy="0 0 0" />
+      <mass
+        value="0.0560771152942645" />
+      <inertia
+        ixx="0.000285036862123492"
+        ixy="4.38260635778966E-10"
+        ixz="-1.4461714128782E-10"
+        iyy="0.000267475821830191"
+        iyz="-4.06324811622983E-05"
+        izz="1.9269824226719E-05" />
     </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="${mesh_prefix}/x500_base/meshes/claw1_link.stl" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.698039215686274 0.698039215686274 0.698039215686274 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="${mesh_prefix}/x500_base/meshes/claw1_link.stl" />
+      </geometry>
+    </collision>
   </link>
-  <joint name="arm_base_fixed_joint" type="fixed">
-    <parent link="base_link"/>
-    <child link="arm_link"/>
-    <origin xyz="0 0 0" rpy="${pi} 0 0"/>
+  <joint
+    name="claw1_rev"
+    type="revolute">
+    <origin
+      xyz="-0.0358 -0.011101 -0.22172"
+      rpy="0.099047 -0.050023 -1.5708" />
+    <parent
+      link="arm_link" />
+    <child
+      link="claw1_link" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      lower="-1.57"
+      upper="1.57"
+      effort="1"
+      velocity="5" />
   </joint>
-  <link name="link1">
-      <visual>
-          <geometry>
-              <cylinder length="0.0666" radius="0.00666"/>
-          </geometry>
-          <material name="black">
-              <color rgba="0.0 0.0 0.0 1"/>
-          </material>
-      </visual>
-      <inertial>
-          <mass value="0.1"/>
-          <origin xyz="0 0 0" rpy="0 0 0"/>
-          <xacro:cylinder_inertia m="0.1" r="0.00666" h="0.0666"/>
-      </inertial>
+  <link
+    name="claw2_link">
+    <inertial>
+      <origin
+        xyz="-3.69743229743438E-07 -0.0133146575831909 -0.151277566185109"
+        rpy="0 0 0" />
+      <mass
+        value="0.0560743819543037" />
+      <inertia
+        ixx="0.000285036357774559"
+        ixy="4.23172495667416E-10"
+        ixz="-1.54693956544949E-10"
+        iyy="0.000267475810089643"
+        iyz="-4.06324857506074E-05"
+        izz="1.92693055458557E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="${mesh_prefix}/x500_base/meshes/claw2_link.stl" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.698039215686274 0.698039215686274 0.698039215686274 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="${mesh_prefix}/x500_base/meshes/claw2_link.stl" />
+      </geometry>
+    </collision>
   </link>
-    <!-- Joint1: placed at the end of arm_link (z = 0.002/2 = 0.001) -->
-  <joint name="joint1" type="revolute">
-      <parent link="arm_link"/>
-      <child link="link1"/>
-      <origin xyz="0 0 0.033" rpy="0 0 0"/>
-      <axis xyz="0 0 1"/>
-      <limit lower="-3.14" upper="3.14" effort="1" velocity="1"/>
-  </joint>
-
-  <xacro:arm_joint_control joint_name="joint1" link_name="link1"/>
-  <link name="link_sphere">
-      <visual>
-          <geometry>
-              <sphere radius="0.00666"/>
-          </geometry>
-          <material name="black">
-              <color rgba="0 0 0 1"/>
-          </material>
-      </visual>
-      <inertial>
-          <mass value="0.1"/>
-          <origin xyz="0 0 0" rpy="0 0 0"/>
-          <xacro:sphere_inertia m="0.1" r="0.00666"/>
-      </inertial>
-  </link>
-    <!-- Joint2: placed at the end of link1 (z = 0.0666/2 = 0.0333) -->
-  <joint name="joint2" type="revolute">
-      <parent link="link1"/>
-      <child link="link_sphere"/>
-      <origin xyz="0 0 0.0333" rpy="0 0 0"/>
-      <axis xyz="1 0 0"/>
-      <limit lower="-3.14" upper="3.14" effort="1" velocity="1"/>
-  </joint>
-  <xacro:arm_joint_control joint_name="joint2" link_name="link_sphere"/>
-  <link name="link2">
-      <visual>
-          <geometry>
-              <cylinder length="0.05" radius="0.00433"/>
-          </geometry>
-          <material name="green">
-              <color rgba="0.2 0.8 0.2 1"/>
-          </material>
-      </visual>
-      <inertial>
-          <mass value="0.1"/>
-          <origin xyz="0 0 0" rpy="0 0 0"/>
-          <xacro:cylinder_inertia m="0.1" r="0.00433" h="0.05"/>
-      </inertial>
-  </link>
-    <!-- Joint3: placed at the end of link_sphere (z = 0.00666) -->
-  <joint name="joint3" type="fixed">
-      <parent link="link_sphere"/>
-      <child link="link2"/>
-      <origin xyz="0 0 0.025" rpy="0 0 0"/>
+  <joint
+    name="claw2_rev"
+    type="revolute">
+    <origin
+      xyz="0.0214 -0.011101 -0.22172"
+      rpy="-0.078432 0.050023 1.5708" />
+    <parent
+      link="arm_link" />
+    <child
+      link="claw2_link" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      lower="-1.57"
+      upper="1.57"
+      effort="1"
+      velocity="5" />
+    <mimic
+      joint="claw1_rev"
+      multiplier="1"
+      offset="0" />
   </joint>
 
 <!-- control tags -->
@@ -318,13 +404,17 @@
 
     <!-- this for position controller -->
     
-    <joint name = "joint1">
-      <command_interface name = "position"/>
+    <joint name = "arm_rev">
+      <command_interface name = "effort"/>
       <state_interface name = "position"/>
+      <state_interface name = "velocity"/>
+      <state_interface name = "effort"/>
     </joint>
-    <joint name = "joint2">
-      <command_interface name = "position"/>
+    <joint name = "claw1_rev">
+      <command_interface name = "effort"/>
       <state_interface name = "position"/>
+      <state_interface name = "velocity"/>
+      <state_interface name = "effort"/>
     </joint>
   </ros2_control>
 

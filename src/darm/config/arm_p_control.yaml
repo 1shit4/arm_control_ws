@@ -14,7 +14,7 @@ controller_manager:
 yaw_position_controller:
   ros__parameters:
     joints:
-      - joint1
+      - arm_rev
     command_interfaces:
       - position
     state_interfaces:
@@ -26,7 +26,7 @@ yaw_position_controller:
 pitch_position_controller:
   ros__parameters:
     joints:
-      - joint2
+      - claw1_rev
     command_interfaces:
       - position
     state_interfaces:

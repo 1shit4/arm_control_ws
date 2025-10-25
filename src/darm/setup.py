@@ -34,6 +34,9 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
+            'dynamic_pid = darm.dynamic_pid_ros2:main',
+            'u_traj = darm.u_shape_traj_ros2:main',
+            'offboard_pid = darm.offboard_pid:main',
         ],
     },
 )
