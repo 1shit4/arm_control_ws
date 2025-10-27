@@ -8,29 +8,59 @@ controller_manager:
     yaw_effort_controller:
       type: effort_controllers/JointGroupEffortController
 
-    pitch_effort_controller:
+    shoulder_effort_controller:
+      type: effort_controllers/JointGroupEffortController
+    
+    elbow_effort_controller:
+      type: effort_controllers/JointGroupEffortController
+    jaw_effort_controller:
       type: effort_controllers/JointGroupEffortController
 
 yaw_effort_controller:
   ros__parameters:
     joints:
-      - arm_rev
+      - arm_to_L1
     command_interfaces:
       - effort
     state_interfaces:
+      - effort
       - position
       - velocity
 
     state_publish_rate: 100.0
 
-
-pitch_effort_controller:
+shoulder_effort_controller:
   ros__parameters:
     joints:
-      - claw1_rev
+      - L1_to_L2
+    command_interfaces:
+      - effort
+    state_interfaces:
+      - effort
+      - position
+      - velocity
+
+    state_publish_rate: 100.0
+
+elbow_effort_controller:
+  ros__parameters:
+    joints:
+      - L2_to_L3
+    command_interfaces:
+      - effort
+    state_interfaces:
+      - position  
+      - velocity
+
+    state_publish_rate: 100.0
+
+jaw_effort_controller:
+  ros__parameters:
+    joints:
+      - L3_to_L4
     command_interfaces:
       - effort
     state_interfaces:
       - position
       - velocity
-    state_publish_rate: 100.0
+    state_publish_rate: 100.0 

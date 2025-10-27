@@ -44,6 +44,9 @@
   <material name="plastic">
     <color rgba="0.1 0.1 0.1 0.7"/>
   </material>
+  <material name="gray">
+    <color rgba="0.8 0.8 0.8 1"/>
+  </material>
   <!-- Macro to declare ros2_control system -->
   <link name="base_link">
     <inertial>
@@ -53,31 +56,31 @@
     <visual name="base_link_visual">
       <origin rpy="0.0 0.0 3.141592654" xyz="0.0 0.0 0.025"/>
       <geometry>
-        <mesh filename="package://darm/urdf/x500_base/meshes/NXP-HGD-CF.dae" scale="1 1 1"/>
+        <mesh filename="file:///home/akshay/iiit_ws/install/darm/share/darm/models/x500_base/meshes/NXP-HGD-CF.dae" scale="1 1 1"/>
       </geometry>
     </visual>
     <visual name="5010_motor_base_0">
       <origin rpy="0.0 0.0 -0.45" xyz="0.174 0.174 0.032"/>
       <geometry>
-        <mesh filename="package://darm/urdf/x500_base/meshes/5010Base.dae" scale="1 1 1"/>
+        <mesh filename="file:///home/akshay/iiit_ws/install/darm/share/darm/models/x500_base/meshes/5010Base.dae" scale="1 1 1"/>
       </geometry>
     </visual>
     <visual name="5010_motor_base_1">
       <origin rpy="0.0 0.0 -0.45" xyz="-0.174 0.174 0.032"/>
       <geometry>
-        <mesh filename="package://darm/urdf/x500_base/meshes/5010Base.dae" scale="1 1 1"/>
+        <mesh filename="file:///home/akshay/iiit_ws/install/darm/share/darm/models/x500_base/meshes/5010Base.dae" scale="1 1 1"/>
       </geometry>
     </visual>
     <visual name="5010_motor_base_2">
       <origin rpy="0.0 0.0 -0.45" xyz="0.174 -0.174 0.032"/>
       <geometry>
-        <mesh filename="package://darm/urdf/x500_base/meshes/5010Base.dae" scale="1 1 1"/>
+        <mesh filename="file:///home/akshay/iiit_ws/install/darm/share/darm/models/x500_base/meshes/5010Base.dae" scale="1 1 1"/>
       </geometry>
     </visual>
     <visual name="5010_motor_base_3">
       <origin rpy="0.0 0.0 -0.45" xyz="-0.174 -0.174 0.032"/>
       <geometry>
-        <mesh filename="package://darm/urdf/x500_base/meshes/5010Base.dae" scale="1 1 1"/>
+        <mesh filename="file:///home/akshay/iiit_ws/install/darm/share/darm/models/x500_base/meshes/5010Base.dae" scale="1 1 1"/>
       </geometry>
     </visual>
     <collision name="base_link_collision_0">
@@ -120,13 +123,13 @@
     <visual name="rotor_0_visual">
       <origin rpy="0.0 0.0 0.0" xyz="-0.022 -0.14638461538461536 -0.016"/>
       <geometry>
-        <mesh filename="package://darm/urdf/x500_base/meshes/1345_prop_ccw.stl" scale="0.8461538461538461 0.8461538461538461 0.8461538461538461"/>
+        <mesh filename="file:///home/akshay/iiit_ws/install/darm/share/darm/models/x500_base/meshes/1345_prop_ccw.stl" scale="0.8461538461538461 0.8461538461538461 0.8461538461538461"/>
       </geometry>
     </visual>
     <visual name="rotor_0_visual_motor_bell">
       <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 -0.032"/>
       <geometry>
-        <mesh filename="package://darm/urdf/x500_base/meshes/5010Bell.dae" scale="1 1 1"/>
+        <mesh filename="file:///home/akshay/iiit_ws/install/darm/share/darm/models/x500_base/meshes/5010Bell.dae" scale="1 1 1"/>
       </geometry>
     </visual>
     <collision name="rotor_0_collision">
@@ -144,13 +147,13 @@
     <visual name="rotor_1_visual">
       <origin rpy="0.0 0.0 0.0" xyz="-0.022 -0.14638461538461536 -0.016"/>
       <geometry>
-        <mesh filename="package://darm/urdf/x500_base/meshes/1345_prop_ccw.stl" scale="0.8461538461538461 0.8461538461538461 0.8461538461538461"/>
+        <mesh filename="file:///home/akshay/iiit_ws/install/darm/share/darm/models/x500_base/meshes/1345_prop_ccw.stl" scale="0.8461538461538461 0.8461538461538461 0.8461538461538461"/>
       </geometry>
     </visual>
     <visual name="rotor_1_visual_motor_top">
       <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 -0.032"/>
       <geometry>
-        <mesh filename="package://darm/urdf/x500_base/meshes/5010Bell.dae" scale="1 1 1"/>
+        <mesh filename="file:///home/akshay/iiit_ws/install/darm/share/darm/models/x500_base/meshes/5010Bell.dae" scale="1 1 1"/>
       </geometry>
     </visual>
     <collision name="rotor_1_collision">
@@ -168,13 +171,13 @@
     <visual name="rotor_2_visual">
       <origin rpy="0.0 0.0 0.0" xyz="-0.022 -0.14638461538461536 -0.016"/>
       <geometry>
-        <mesh filename="package://darm/urdf/x500_base/meshes/1345_prop_cw.stl" scale="0.8461538461538461 0.8461538461538461 0.8461538461538461"/>
+        <mesh filename="file:///home/akshay/iiit_ws/install/darm/share/darm/models/x500_base/meshes/1345_prop_cw.stl" scale="0.8461538461538461 0.8461538461538461 0.8461538461538461"/>
       </geometry>
     </visual>
     <visual name="rotor_2_visual_motor_top">
       <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 -0.032"/>
       <geometry>
-        <mesh filename="package://darm/urdf/x500_base/meshes/5010Bell.dae" scale="1 1 1"/>
+        <mesh filename="file:///home/akshay/iiit_ws/install/darm/share/darm/models/x500_base/meshes/5010Bell.dae" scale="1 1 1"/>
       </geometry>
     </visual>
     <collision name="rotor_2_collision">
@@ -192,13 +195,13 @@
     <visual name="rotor_3_visual">
       <origin rpy="0.0 0.0 0.0" xyz="-0.022 -0.14638461538461536 -0.016"/>
       <geometry>
-        <mesh filename="package://darm/urdf/x500_base/meshes/1345_prop_cw.stl" scale="0.8461538461538461 0.8461538461538461 0.8461538461538461"/>
+        <mesh filename="file:///home/akshay/iiit_ws/install/darm/share/darm/models/x500_base/meshes/1345_prop_cw.stl" scale="0.8461538461538461 0.8461538461538461 0.8461538461538461"/>
       </geometry>
     </visual>
     <visual name="rotor_3_visual_motor_top">
       <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 -0.032"/>
       <geometry>
-        <mesh filename="package://darm/urdf/x500_base/meshes/5010Bell.dae" scale="1 1 1"/>
+        <mesh filename="file:///home/akshay/iiit_ws/install/darm/share/darm/models/x500_base/meshes/5010Bell.dae" scale="1 1 1"/>
       </geometry>
     </visual>
     <collision name="rotor_3_collision">
@@ -238,109 +241,169 @@
     <limit effort="10.0" lower="-1e+16" upper="1e+16" velocity="100.0"/>
   </joint>
   <!-- ARM  -->
+  <joint name="base_to_arm" type="fixed">
+    <parent link="base_link"/>
+    <child link="arm_link"/>
+    <origin rpy="3.141592653589793 0 0" xyz="0 0 -0.025"/>
+  </joint>
   <link name="arm_link">
     <visual>
       <geometry>
-        <box size="0.03 0.03 0.002"/>
+        <mesh filename="file:///home/akshay/iiit_ws/install/darm/share/darm/models/x500_base/meshes/base.stl"/>
       </geometry>
-      <material name="orange"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <material name="gray"/>
     </visual>
     <collision>
       <geometry>
-        <box size="0.03 0.03 0.002"/>
+        <mesh filename="file:///home/akshay/iiit_ws/install/darm/share/darm/models/x500_base/meshes/base.stl"/>
       </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
     <inertial>
-      <mass value="0.100"/>
+      <mass value="0.1"/>
       <origin rpy="0 0 0" xyz="0 0 0"/>
-      <inertia ixx="7.533333333333334e-06" ixy="0" ixz="0" iyy="7.533333333333334e-06" iyz="0" izz="1.5e-05"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
     </inertial>
   </link>
-  <joint name="arm_base_fixed_joint" type="fixed">
-    <parent link="base_link"/>
-    <child link="arm_link"/>
-    <origin rpy="3.141592653589793 0 0" xyz="0 0 0"/>
-  </joint>
-  <link name="link1">
+  <link name="l1_link">
     <visual>
       <geometry>
-        <cylinder length="0.0666" radius="0.00666"/>
+        <mesh filename="file:///home/akshay/iiit_ws/install/darm/share/darm/models/x500_base/meshes/L1.stl"/>
       </geometry>
-      <material name="black">
-        <color rgba="0.0 0.0 0.0 1"/>
-      </material>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <material name="white"/>
     </visual>
+    <collision>
+      <geometry>
+        <mesh filename="file:///home/akshay/iiit_ws/install/darm/share/darm/models/x500_base/meshes/L1.stl"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </collision>
     <inertial>
       <mass value="0.1"/>
       <origin rpy="0 0 0" xyz="0 0 0"/>
-      <inertia ixx="3.807189e-05" ixy="0" ixz="0" iyy="3.807189e-05" iyz="0" izz="2.21778e-06"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
     </inertial>
   </link>
-  <!-- Joint1: placed at the end of arm_link (z = 0.002/2 = 0.001) -->
-  <joint name="joint1" type="revolute">
-    <parent link="arm_link"/>
-    <child link="link1"/>
-    <origin rpy="0 0 0" xyz="0 0 0.033"/>
+  <link name="l2_link">
+    <visual>
+      <geometry>
+        <mesh filename="file:///home/akshay/iiit_ws/install/darm/share/darm/models/x500_base/meshes/L2.stl"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 -0.03796"/>
+      <material name="white"/>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="file:///home/akshay/iiit_ws/install/darm/share/darm/models/x500_base/meshes/L2.stl"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </collision>
+    <inertial>
+      <mass value="0.1"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+  <link name="l3_link">
+    <visual>
+      <geometry>
+        <mesh filename="file:///home/akshay/iiit_ws/install/darm/share/darm/models/x500_base/meshes/L3.stl"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="-0.03 0 -0.27477"/>
+      <material name="white"/>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="file:///home/akshay/iiit_ws/install/darm/share/darm/models/x500_base/meshes/L3.stl"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </collision>
+    <inertial>
+      <mass value="0.1"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+  <link name="l4_link">
+    <visual>
+      <geometry>
+        <mesh filename="file:///home/akshay/iiit_ws/install/darm/share/darm/models/x500_base/meshes/L4.stl"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="-0.03 0 -0.49076"/>
+      <material name="white"/>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="file:///home/akshay/iiit_ws/install/darm/share/darm/models/x500_base/meshes/L4.stl"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </collision>
+    <inertial>
+      <mass value="0.1"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="arm_to_L1" type="revolute">
     <axis xyz="0 0 1"/>
-    <limit effort="1" lower="-3.14" upper="3.14" velocity="1"/>
+    <limit effort="1000.0" lower="-3.14" upper="3.14" velocity="0.5"/>
+    <parent link="arm_link"/>
+    <child link="l1_link"/>
+    <origin xyz="0 0 0"/>
   </joint>
-  <link name="link_sphere">
-    <visual>
-      <geometry>
-        <sphere radius="0.00666"/>
-      </geometry>
-      <material name="black">
-        <color rgba="0 0 0 1"/>
-      </material>
-    </visual>
-    <inertial>
-      <mass value="0.1"/>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <inertia ixx="1.7742240000000001e-06" ixy="0" ixz="0" iyy="1.7742240000000001e-06" iyz="0" izz="1.7742240000000001e-06"/>
-    </inertial>
-  </link>
-  <!-- Joint2: placed at the end of link1 (z = 0.0666/2 = 0.0333) -->
-  <joint name="joint2" type="revolute">
-    <parent link="link1"/>
-    <child link="link_sphere"/>
-    <origin rpy="0 0 0" xyz="0 0 0.0333"/>
-    <axis xyz="1 0 0"/>
-    <limit effort="1" lower="-3.14" upper="3.14" velocity="1"/>
+  <joint name="L1_to_L2" type="revolute">
+    <axis xyz="0 1 0"/>
+    <limit effort="1000.0" lower="-1.570796" upper="1.570796" velocity="0.5"/>
+    <parent link="l1_link"/>
+    <child link="l2_link"/>
+    <origin xyz="0 0 0.03796"/>
   </joint>
-  <link name="link2">
-    <visual>
-      <geometry>
-        <cylinder length="0.05" radius="0.00433"/>
-      </geometry>
-      <material name="green">
-        <color rgba="0.2 0.8 0.2 1"/>
-      </material>
-    </visual>
-    <inertial>
-      <mass value="0.1"/>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <inertia ixx="2.130205583333334e-05" ixy="0" ixz="0" iyy="2.130205583333334e-05" iyz="0" izz="9.37445e-07"/>
-    </inertial>
-  </link>
-  <!-- Joint3: placed at the end of link_sphere (z = 0.00666) -->
-  <joint name="joint3" type="fixed">
-    <parent link="link_sphere"/>
-    <child link="link2"/>
-    <origin rpy="0 0 0" xyz="0 0 0.025"/>
+  <joint name="L2_to_L3" type="revolute">
+    <axis xyz="0 1 0"/>
+    <limit effort="1000.0" lower="-0.78539815" upper="3.1415926" velocity="0.5"/>
+    <parent link="l2_link"/>
+    <child link="l3_link"/>
+    <origin xyz="0.03 0 0.23682"/>
+  </joint>
+  <joint name="L3_to_L4" type="revolute">
+    <axis xyz="-1 0 0"/>
+    <limit effort="1000.0" lower="-2.3561942" upper="2.3561942" velocity="0.5"/>
+    <parent link="l3_link"/>
+    <child link="l4_link"/>
+    <origin xyz="0 0 0.21599"/>
   </joint>
   <!-- control tags -->
   <ros2_control name="GazeboSimSystem" type="system">
     <hardware>
       <plugin>gz_ros2_control/GazeboSimSystem</plugin>
     </hardware>
-    <ros2_control_block joint_names="joint1"/>
-    <ros2_control_block joint_names="joint2"/>
+    <joint name="arm_to_L1">
+      <command_interface name="effort"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+      <state_interface name="effort"/>
+    </joint>
+    <joint name="L1_to_L2">
+      <command_interface name="effort"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+      <state_interface name="effort"/>
+    </joint>
+    <joint name="L2_to_L3">
+      <command_interface name="effort"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+      <state_interface name="effort"/>
+    </joint>
+    <joint name="L3_to_L4">
+      <command_interface name="effort"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+      <state_interface name="effort"/>
+    </joint>
   </ros2_control>
   <!--................................ INERTIA MATRICES .............................. -->
   <!-- Macro to declare ros2_control system -->
-  <plugin filename="gz_ros2_control-system" name="gz_ros2_control::GazeboSimROS2ControlPlugin">
-    <robot_param>robot_description</robot_param>
-    <robot_param_node>robot_state_publisher</robot_param_node>
-    <parameters>package://darm/config/arm_control.yaml</parameters>
-  </plugin>
 </robot>

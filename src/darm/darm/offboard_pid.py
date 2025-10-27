@@ -120,7 +120,7 @@ class OffboardControl(Node):
     def publish_torque_setpoint(self, torques: np.ndarray):
         """Publish the vehicle torque setpoint."""
         msg = VehicleTorqueSetpoint()
-        msg.xyz = [float(torques[0]), float(torques[1]), float(torques[2])]
+        msg.xyz = [0.0, 0.0, 0.0] #[float(torques[0]), float(torques[1]), float(torques[2])]
         msg.timestamp = int(self.get_clock().now().nanoseconds / 1000)
         self.vehicle_torque_setpoint_publisher.publish(msg)
 
@@ -129,7 +129,7 @@ class OffboardControl(Node):
         msg = VehicleThrustSetpoint()
         # PX4 thrust is normalized [0, 1] and applied on the Z-axis (NED)
         # We send a negative thrust command because the Z-axis is "down"
-        msg.xyz = [0.0, 0.0, np.clip(-thrust, 0.0, 10.0)]
+        msg.xyz = [0.0, 0.0, -np.clip(-thrust, 0.0, 1.0)]
         msg.timestamp = int(self.get_clock().now().nanoseconds / 1000)
         self.vehicle_thrust_setpoint_publisher.publish(msg)
         self.get_logger().info(f"Publishing thrust setpoint: {thrust}")
