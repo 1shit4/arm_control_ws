@@ -70,17 +70,33 @@ The goal is to simulate and control a quadrotor drone with an attached manipulat
 
 ## ▶️ Usage
 
-To launch the simulation:
+To launch the simulation.
 
 ```bash
-prime-run ros2 launch darm trial.launch.py
+#inside PX4-Autopilot:
+prime-run make px4_sitl gz_x500 
+
+#launch qgc
+
+#inside arm workspace
+prime-run ros2 launch darm trial.launch.py 
+
+#inside a serperate terminal 
+ros2 run darm thrust
+
+#launch xrce dds agent in a seperate terminal
+MicroXRCEAgent udp4 -p 8888
+
+#finally publish commands to the arm topics once everything is initialised
+ros2 topic pub /{insert controller name here}_effort_controller/commands std_msgs/msg/Float64MultiArray "{data: [0]}"
+
+
 ```
 
 This will:
 
-- Start PX4 + Gazebo SITL.
 - Spawn the `x500_base` drone model with manipulator.
-- Launch ros2\_control with the configured controllers.
+- Launch ros2\_control with the configured controllers. 
 
 ---
 
