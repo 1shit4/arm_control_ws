@@ -1,1 +1,0 @@
-/home/akshay/iiit_ws/src/darm/launch/simple.launch.py

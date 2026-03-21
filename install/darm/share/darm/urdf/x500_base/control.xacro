@@ -1,1 +1,19 @@
-/home/akshay/iiit_ws/build/darm/urdf/x500_base/control.xacro
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <!-- Macro to declare ros2_control system -->
+
+    <xacro:macro name="arm_joint_control" params="joint_name link_name">
+        <transmission name="${joint_name}_transmission">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="${joint_name}">
+            <hardwareInterface>position</hardwareInterface>
+            </joint>
+            <actuator name="${link_name}">
+            <hardwareInterface>position</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+            </actuator>
+        </transmission>
+    </xacro:macro>
+
+</robot>

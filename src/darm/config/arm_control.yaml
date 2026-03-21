@@ -1,3 +1,4 @@
+---
 controller_manager:
   ros__parameters:
     update_rate: 100
@@ -5,62 +6,109 @@ controller_manager:
     joint_state_broadcaster:
       type: joint_state_broadcaster/JointStateBroadcaster
 
-    yaw_effort_controller:
-      type: effort_controllers/JointGroupEffortController
+    # yaw_effort_controller:
+    #   type: effort_controllers/JointGroupEffortController
 
-    shoulder_effort_controller:
-      type: effort_controllers/JointGroupEffortController
-    
-    elbow_effort_controller:
-      type: effort_controllers/JointGroupEffortController
-    jaw_effort_controller:
-      type: effort_controllers/JointGroupEffortController
+    # shoulder_effort_controller:
+    #   type: effort_controllers/JointGroupEffortController
+    # elbow_effort_controller:
+    #   type: effort_controllers/JointGroupEffortController
+    # jaw_effort_controller:
+    #   type: effort_controllers/JointGroupEffortController
 
-yaw_effort_controller:
-  ros__parameters:
-    joints:
-      - arm_to_L1
-    command_interfaces:
-      - effort
-    state_interfaces:
-      - effort
-      - position
-      - velocity
+    arm_effort_controller:
+      type: effort_controllers/JointGroupEffortController
+    # arm_position_controller:
+    #   type: position_controllers/JointGroupPositionController
 
-    state_publish_rate: 100.0
 
-shoulder_effort_controller:
+# arm_position_controller:
+#   ros__parameters:
+#     joints:
+#       - joint_1
+#       - joint_2
+#     command_interfaces:
+#       - position
+#     state_interfaces:
+#       - effort
+#       - position
+#       - velocity
+
+# arm_position_controller:
+#   ros__parameters:
+#     joints:
+#       - L1_to_L2
+#       - L2_to_L3
+#       - L3_to_L4
+#     command_interfaces:
+#       - position
+#     state_interfaces:
+#       - effort
+#       - position
+#       - velocity
+
+
+arm_effort_controller:
   ros__parameters:
     joints:
       - L1_to_L2
-    command_interfaces:
-      - effort
-    state_interfaces:
-      - effort
-      - position
-      - velocity
-
-    state_publish_rate: 100.0
-
-elbow_effort_controller:
-  ros__parameters:
-    joints:
       - L2_to_L3
-    command_interfaces:
-      - effort
-    state_interfaces:
-      - position  
-      - velocity
-
-    state_publish_rate: 100.0
-
-jaw_effort_controller:
-  ros__parameters:
-    joints:
       - L3_to_L4
     command_interfaces:
       - effort
     state_interfaces:
+      - effort
       - position
       - velocity
-    state_publish_rate: 100.0 
+
+    # state_publish_rate: 100.0
+
+# yaw_effort_controller:
+#   ros__parameters:
+#     joints:
+#       - arm_to_L1
+#     command_interfaces:
+#       - effort
+#     state_interfaces:
+#       - effort
+#       - position
+#       - velocity
+
+#     state_publish_rate: 100.0
+
+# shoulder_effort_controller:
+#   ros__parameters:
+#     joints:
+#       - L1_to_L2
+#     command_interfaces:
+#       - effort
+#     state_interfaces:
+#       - effort
+#       - position
+#       - velocity
+
+#     state_publish_rate: 100.0
+
+# elbow_effort_controller:
+#   ros__parameters:
+#     joints:
+#       - L2_to_L3
+#     command_interfaces:
+#       - effort
+#     state_interfaces:
+#       - position
+#       - velocity
+
+#     state_publish_rate: 100.0
+
+# jaw_effort_controller:
+#   ros__parameters:
+#     joints:    state_publish_rate: 100.0
+
+#       - L3_to_L4
+#     command_interfaces:
+#       - effort
+#     state_interfaces:
+#       - position
+#       - velocity
+#     state_publish_rate: 100.0

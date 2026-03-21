@@ -199,12 +199,11 @@
     <limit lower="-1e+16" upper="1e+16" effort="10.0" velocity="100.0"/>
   </joint>
 
-
 <!-- ARM  -->
   <joint name="base_to_arm" type="fixed">
     <parent link="base_link"/>
     <child link="arm_link"/>
-    <origin xyz="0 0 -0.025" rpy="${pi} 0 0"/>
+    <origin xyz="0.0 0 -0.025" rpy="0 3.14 0"/>
   </joint>
 
   <link name="arm_link">
@@ -317,9 +316,7 @@
     </inertial>
   </link>
 
-  <joint name="arm_to_L1" type="revolute">
-    <axis xyz="0 0 1"/>
-    <limit effort="1000.0" lower="-3.14" upper="3.14" velocity="0.5"/>
+  <joint name="arm_to_L1" type="fixed">
     <parent link="arm_link"/>
     <child link="l1_link"/>
     <origin xyz="0 0 0"/>
@@ -327,16 +324,15 @@
 
   <joint name="L1_to_L2" type="revolute">
     <axis xyz="0 1 0"/>
-    <limit effort="1000.0" lower="-1.570796" upper="1.570796" velocity="0.5"/>
+    <limit effort="1000.0" lower="-3.1416" upper="3.1416" velocity="2.0"/>
     <parent link="l1_link"/>
     <child link="l2_link"/>
-    <origin xyz="0 0 0.03796"/>
-    <initial_position>-1.57</initial_position>
+    <origin xyz="0 0 0.03796" rpy="0 1.57 0"/>
   </joint>
 
   <joint name="L2_to_L3" type="revolute">
     <axis xyz="0 1 0"/>
-    <limit effort="1000.0" lower="-0.78539815" upper="3.1415926" velocity="0.5"/>
+    <limit effort="1000.0" lower="-2.78539815" upper="3.1415926" velocity="2.0"/>
     <parent link="l2_link"/>
     <child link="l3_link"/>
     <origin xyz="0.03 0 0.23682"/>
@@ -344,7 +340,7 @@
 
   <joint name="L3_to_L4" type="revolute">
     <axis xyz="-1 0 0"/>
-    <limit effort="1000.0" lower="-2.3561942" upper="2.3561942" velocity="0.5"/>
+    <limit effort="1000.0" lower="-2.3561942" upper="2.3561942" velocity="2.0"/>
     <parent link="l3_link"/>
     <child link="l4_link"/>
     <origin xyz="0 0 0.21599"/>
@@ -355,13 +351,7 @@
     <hardware>
         <plugin>gz_ros2_control/GazeboSimSystem</plugin>
     </hardware>
-
-    <joint name = "arm_to_L1">
-      <command_interface name = "effort"/>
-      <state_interface name = "position"/>
-      <state_interface name = "velocity"/>
-      <state_interface name = "effort"/>
-    </joint>
+    
     <joint name = "L1_to_L2">
       <command_interface name = "effort"/>
       <state_interface name = "position"/>

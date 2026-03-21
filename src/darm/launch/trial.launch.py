@@ -37,13 +37,13 @@ def generate_launch_description():
         parameters=[params]
     )
 
-    rviz = Node(
-        package='rviz2',
-        executable='rviz2',
-        name='rviz2',
-        output='screen',
-        parameters=[{'use_sim_time': True}],
-    )
+    # rviz = Node(
+    #     package='rviz2',
+    #     executable='rviz2',
+    #     name='rviz2',
+    #     output='screen',
+    #     parameters=[{'use_sim_time': True}],
+    # )
 
     use_gpu = os.environ.get('USE_GPU', '1') == '1'
     launch_env_vars = []
@@ -53,17 +53,17 @@ def generate_launch_description():
             SetEnvironmentVariable(name='__GLX_VENDOR_LIBRARY_NAME', value='nvidia'),
         ])
 
-    gzbridge = Node(
-        package='ros_gz_bridge',
-        executable='parameter_bridge',
-        arguments=[
-            '/clock@rosgraph_msgs/msg/Clock[gz.msgs.Clock',
-            "/world/default/model/x500_0/joint_state@sensor_msgs/msg/JointState[gz.msgs.Model"
-        ],
-        remappings=[
-            ('/world/default/model/x500_0/joint_state', '/joint_states'),
-        ],
-    )
+    # gzbridge = Node(
+    #     package='ros_gz_bridge',
+    #     executable='parameter_bridge',
+    #     arguments=[
+    #         '/clock@rosgraph_msgs/msg/Clock[gz.msgs.Clock',
+    #         "/world/default/model/x500_0/joint_state@sensor_msgs/msg/JointState[gz.msgs.Model"
+    #     ],
+    #     remappings=[
+    #         ('/world/default/model/x500_0/joint_state', '/joint_states'),
+    #     ],
+    # )
 
     # Wait longer for PX4 to fully initialize (20 seconds)
     # Spawn joint_state_broadcaster FIRST and ALONE
@@ -76,37 +76,20 @@ def generate_launch_description():
                 arguments=[
                     'joint_state_broadcaster',
                     '--controller-manager-timeout', '30'  # Longer timeout
-                ],
+                ],  
                 output='screen'
             )
         ]
     )
 
-    # Wait 5 more seconds, then spawn ONE controller at a time with delays
-    spawn_yaw = TimerAction(
-        period=25.0,
-        actions=[
-            Node(
-                package='controller_manager',
-                executable='spawner',
-                arguments=[
-                    'yaw_effort_controller',
-                    '--param-file', robot_controllers,
-                    '--controller-manager-timeout', '30'
-                ],
-                output='screen'
-            )
-        ]
-    )
-
-    spawn_shoulder = TimerAction(
+    spawn_arm = TimerAction(
         period=30.0,
         actions=[
             Node(
                 package='controller_manager',
                 executable='spawner',
                 arguments=[
-                    'shoulder_effort_controller',
+                    'arm_effort_controller',
                     '--param-file', robot_controllers,
                     '--controller-manager-timeout', '30'
                 ],
@@ -114,47 +97,78 @@ def generate_launch_description():
             )
         ]
     )
+    # spawn_arm = TimerAction(
+    #     period=30.0,
+    #     actions=[
+    #         Node(
+    #             package='controller_manager',
+    #             executable='spawner',
+    #             arguments=[
+    #                 'arm_position_controller',
+    #                 '--param-file', robot_controllers,
+    #                 '--controller-manager-timeout', '30'
+    #             ],
+    #             output='screen'
+    #         )
+    #     ]
+    # )
 
-    spawn_elbow = TimerAction(
-        period=35.0,
-        actions=[
-            Node(
-                package='controller_manager',
-                executable='spawner',
-                arguments=[
-                    'elbow_effort_controller',
-                    '--param-file', robot_controllers,
-                    '--controller-manager-timeout', '30'
-                ],
-                output='screen'
-            )
-        ]
-    )
+    # spawn_shoulder = TimerAction(
+    #     period=30.0,
+    #     actions=[
+    #         Node(
+    #             package='controller_manager',
+    #             executable='spawner',
+    #             arguments=[
+    #                 'shoulder_effort_controller',
+    #                 '--param-file', robot_controllers,
+    #                 '--controller-manager-timeout', '30'
+    #             ],
+    #             output='screen'
+    #         )
+    #     ]
+    # )
 
-    spawn_jaw = TimerAction(
-        period=40.0,
-        actions=[
-            Node(
-                package='controller_manager',
-                executable='spawner',
-                arguments=[
-                    'jaw_effort_controller',
-                    '--param-file', robot_controllers,
-                    '--controller-manager-timeout', '30'
-                ],
-                output='screen'
-            )
-        ]
-    )
+    # spawn_elbow = TimerAction(
+    #     period=35.0,
+    #     actions=[
+    #         Node(
+    #             package='controller_manager',
+    #             executable='spawner',
+    #             arguments=[
+    #                 'elbow_effort_controller',
+    #                 '--param-file', robot_controllers,
+    #                 '--controller-manager-timeout', '30'
+    #             ],
+    #             output='screen'
+    #         )
+    #     ]
+    # )
+
+    # spawn_jaw = TimerAction(
+    #     period=40.0,
+    #     actions=[
+    #         Node(
+    #             package='controller_manager',
+    #             executable='spawner',
+    #             arguments=[
+    #                 'jaw_effort_controller',
+    #                 '--param-file', robot_controllers,
+    #                 '--controller-manager-timeout', '30'
+    #             ],
+    #             output='screen'
+    #         )
+    #     ]
+    # )
 
     return LaunchDescription([
         *launch_env_vars,
         rsp,
-        rviz,
-        gzbridge,
+        # rviz,
+        # gzbridge,         
         spawn_joint_state_broadcaster,
-        spawn_yaw,
-        spawn_shoulder,
-        spawn_elbow,
-        spawn_jaw
+        spawn_arm,
+        # spawn_shoulder,
+        # spawn_elbow,
+        # spawn_jaw
     ])

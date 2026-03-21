@@ -1,1 +1,34 @@
-/home/akshay/iiit_ws/build/darm/config/arm_p_control.yaml
+controller_manager:
+  ros__parameters:
+    update_rate: 100
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+    yaw_position_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+
+    pitch_position_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+
+yaw_position_controller:
+  ros__parameters:
+    joints:
+      - arm_rev
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+
+    state_publish_rate: 100.0
+
+
+pitch_position_controller:
+  ros__parameters:
+    joints:
+      - claw1_rev
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+    state_publish_rate: 100.0

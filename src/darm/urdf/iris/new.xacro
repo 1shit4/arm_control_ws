@@ -1,0 +1,264 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="iris_arm">
+
+  <xacro:property name="mesh_path" value="package://darm/meshes" />
+  <xacro:property name="pi" value="3.14159265359" />
+
+  <material name="DarkGrey">
+    <color rgba="0.2 0.2 0.2 1.0"/>
+  </material>
+  <material name="Blue">
+    <color rgba="0.0 0.0 0.8 1.0"/>
+  </material>
+  <material name="White">
+    <color rgba="1.0 1.0 1.0 1.0"/>
+  </material>
+
+  <link name="base_link">
+    <inertial>
+      <mass value="1.5"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="0.029125" ixy="0" ixz="0" iyy="0.029125" iyz="0" izz="0.055225"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="${mesh_path}/iris.stl" scale="1 1 1"/>
+      </geometry>
+      <material name="DarkGrey"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.47 0.47 0.11"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="imu_link">
+    <inertial>
+      <mass value="0.015"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="0.00001" ixy="0" ixz="0" iyy="0.00001" iyz="0" izz="0.00001"/>
+    </inertial>
+  </link>
+
+  <joint name="imu_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="imu_link"/>
+    <origin xyz="0 0 0.02" rpy="0 0 0"/>
+  </joint>
+
+  <xacro:macro name="rotor" params="id x y dir mesh_file color">
+    <link name="rotor_${id}">
+      <inertial>
+        <mass value="0.005"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <inertia ixx="9.75e-07" ixy="0" ixz="0" iyy="0.000273104" iyz="0" izz="0.000274004"/>
+      </inertial>
+      <visual>
+        <geometry>
+          <mesh filename="${mesh_path}/${mesh_file}" scale="1 1 1"/>
+        </geometry>
+        <material name="${color}"/>
+      </visual>
+      <collision>
+        <geometry>
+          <cylinder radius="0.128" length="0.005"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="rotor_${id}_joint" type="continuous">
+      <parent link="base_link"/>
+      <child link="rotor_${id}"/>
+      <origin xyz="${x} ${y} 0.023" rpy="0 0 0"/>
+      <axis xyz="0 0 1"/>
+    </joint>
+  </xacro:macro>
+
+  <xacro:rotor id="0" x="0.13" y="-0.22" dir="ccw" mesh_file="iris_prop_ccw.dae" color="Blue"/>
+  <xacro:rotor id="1" x="-0.13" y="0.2" dir="ccw" mesh_file="iris_prop_ccw.dae" color="DarkGrey"/>
+  <xacro:rotor id="2" x="0.13" y="0.22" dir="cw" mesh_file="iris_prop_cw.dae" color="Blue"/>
+  <xacro:rotor id="3" x="-0.13" y="-0.2" dir="cw" mesh_file="iris_prop_cw.dae" color="DarkGrey"/>
+
+  <joint name="arm_to_L1" type="revolute">
+    <parent link="base_link"/>
+    <child link="l1_link"/>
+    <origin xyz="0 0 -0.025" rpy="0 1.57 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-3.14" upper="3.14" effort="1000" velocity="0.5"/>
+  </joint>
+
+  <link name="l1_link">
+    <inertial>
+      <mass value="0.1"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="${mesh_path}/L1.stl" scale="1 1 1"/>
+      </geometry>
+      <material name="White"/>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="${mesh_path}/L1.stl" scale="1 1 1"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="L1_to_L2" type="revolute">
+    <parent link="l1_link"/>
+    <child link="l2_link"/>
+    <origin xyz="0 0 0.03796" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-1.570796" upper="1.570796" effort="1000" velocity="0.5"/>
+  </joint>
+
+  <link name="l2_link">
+    <inertial>
+      <mass value="0.1"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 -0.03796" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="${mesh_path}/L2.stl" scale="1 1 1"/>
+      </geometry>
+      <material name="White"/>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="${mesh_path}/L2.stl" scale="1 1 1"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="L2_to_L3" type="revolute">
+    <parent link="l2_link"/>
+    <child link="l3_link"/>
+    <origin xyz="0.03 0 0.23682" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-0.78539815" upper="3.1415926" effort="1000" velocity="0.5"/>
+  </joint>
+
+  <link name="l3_link">
+    <inertial>
+      <mass value="0.1"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+    <visual>
+      <origin xyz="-0.03 0 -0.27477" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="${mesh_path}/L3.stl" scale="1 1 1"/>
+      </geometry>
+      <material name="White"/>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="${mesh_path}/L3.stl" scale="1 1 1"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="L3_to_L4" type="revolute">
+    <parent link="l3_link"/>
+    <child link="l4_link"/>
+    <origin xyz="0 0 0.21599" rpy="0 0 0"/>
+    <axis xyz="-1 0 0"/>
+    <limit lower="-2.3561942" upper="2.3561942" effort="1000" velocity="0.5"/>
+  </joint>
+
+  <link name="l4_link">
+    <inertial>
+      <mass value="0.1"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+    <visual>
+      <origin xyz="-0.03 0 -0.49076" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="${mesh_path}/L4.stl" scale="1 1 1"/>
+      </geometry>
+      <material name="White"/>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="${mesh_path}/L4.stl" scale="1 1 1"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <ros2_control name="GazeboSystem" type="system">
+    <hardware>
+      <plugin>gazebo_ros2_control/GazeboSystem</plugin>
+    </hardware>
+    
+    <joint name="arm_to_L1">
+      <command_interface name="effort">
+        <param name="min">-1000</param>
+        <param name="max">1000</param>
+      </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+      <state_interface name="effort"/>
+    </joint>
+
+    <joint name="L1_to_L2">
+      <command_interface name="effort">
+        <param name="min">-1000</param>
+        <param name="max">1000</param>
+      </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+      <state_interface name="effort"/>
+    </joint>
+
+    <joint name="L2_to_L3">
+      <command_interface name="effort">
+        <param name="min">-1000</param>
+        <param name="max">1000</param>
+      </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+      <state_interface name="effort"/>
+    </joint>
+
+    <joint name="L3_to_L4">
+      <command_interface name="effort">
+        <param name="min">-1000</param>
+        <param name="max">1000</param>
+      </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+      <state_interface name="effort"/>
+    </joint>
+  </ros2_control>
+
+  <gazebo>
+    <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
+      <parameters>$(find darm)/config/arm_control_gclsassic.yaml</parameters>
+    </plugin>
+  </gazebo>
+
+  <gazebo reference="base_link">
+    <material>Gazebo/DarkGrey</material>
+  </gazebo>
+  <gazebo reference="rotor_0">
+    <material>Gazebo/Blue</material>
+  </gazebo>
+  <gazebo reference="rotor_1">
+    <material>Gazebo/DarkGrey</material>
+  </gazebo>
+  <gazebo reference="rotor_2">
+    <material>Gazebo/Blue</material>
+  </gazebo>
+  <gazebo reference="rotor_3">
+    <material>Gazebo/DarkGrey</material>
+  </gazebo>
+
+</robot>

@@ -38,6 +38,9 @@ setup(
             'u_traj = darm.u_shape_traj_ros2:main',
             'offboard_pid = darm.offboard_pid:main',
             'torque = darm.torque_2:main',
+            'torque_loop = darm.torque_3:main',
+            'arm_control = darm.arm_effort:main',
+            'joint_update = darm.joint_updater:main'
         ],
     },
 )
