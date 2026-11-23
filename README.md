@@ -1,137 +1,90 @@
-# Manipulator Drone
+# Aerial-Manipulator Modeling and Arm Control
 
-A ROS 2 package that integrates **PX4 SITL**, **Gazebo Harmonic**, and **ros2\_control** for simulating and controlling a manipulator-equipped drone.
+**ROS 2 and Gazebo workspace for simulating and controlling a robotic arm mounted on a quadrotor.**
 
----
+This repository supports the [Robust Goal-Directed Aerial Manipulation project](https://github.com/1shit4/aerial-manipulation-rl-control), which investigates coordinated vehicle–arm motion and disturbance compensation. Its focus is the **manipulator subsystem**: the robot description, simulated joint-control interfaces, joint-feedback controllers, and reference trajectories used to move the arm during aerial-manipulation experiments.
 
-## 🚀 Overview
+## Robot Model and Joint Interfaces
 
-This package provides:
+The workspace includes X500-based aerial-manipulator descriptions in **URDF/Xacro and SDF**, together with ROS 2 launch files and Gazebo model resources. The three-joint configuration exposes the actuated joints `L1_to_L2`, `L2_to_L3`, and `L3_to_L4` through `ros2_control`/`gz_ros2_control`.
 
-- PX4 + Gazebo SITL integration.
-- ros2\_control interface for actuators.
-- Support for custom URDF/Xacro and SDF models.
+Two control interfaces are configured:
 
-The goal is to simulate and control a quadrotor drone with an attached manipulator arm using ROS 2 and Gazebo.
+- **Joint-position control:** desired joint angles are sent to a `JointGroupPositionController`, which commands simulated joint positions.
+- **Joint-effort control:** desired joint torques/efforts are sent to a `JointGroupEffortController`; custom ROS 2 feedback controllers can calculate those efforts from joint-state measurements.
 
----
+The arm can therefore be commanded independently of the quadrotor's flight controller, allowing its motion to be used in coupled-dynamics and disturbance-rejection experiments.
 
-## 📦 Requirements
+## Arm Controllers
 
-- [ROS 2 Humble](https://docs.ros.org/en/humble/Installation.html)
-- [Gazebo Harmonic (source install)](https://gazebosim.org/docs/harmonic/install)
-- [PX4 Autopilot](https://docs.px4.io/main/en/ros2/)
-- [ros2\_control](https://control.ros.org/master/index.html)
-- [gz\_ros2\_control](https://control.ros.org/humble/doc/gz_ros2_control/doc/index.html)
+### Cascaded position–velocity effort control
 
----
+**Source:** [`arm_effort.py`](src/darm/darm/arm_effort.py)
 
-## ⚙️ Installation
+A two-loop feedback controller tracks desired positions of the three arm joints:
 
-1. Clone PX4 and setup SITL with ROS 2:
-
-   ```bash
-   git clone https://github.com/PX4/PX4-Autopilot.git --recursive
-   cd PX4-Autopilot
-   make px4_sitl gz_x500
-   ```
-
-2. Install ROS 2 Humble (desktop version recommended).
-
-3. Source install **Gazebo Harmonic**:
-
-   ```bash
-   git clone https://github.com/gazebosim/gz-sim -b harmonic
-   colcon build --merge-install
-   ```
-
-4. Install **gz\_ros2\_control**:
-
-   ```bash
-   git clone https://github.com/ros-controls/gz_ros2_control.git
-   colcon build --merge-install
-   ```
-
-5. Export required environment variables:
-
-   ```bash
-   export GZ_SIM_RESOURCE_PATH=$HOME/iiit_ws/install/darm/share/darm/models:$GZ_SIM_RESOURCE_PATH
-   export GZ_SIM_SYSTEM_PLUGIN_PATH=$HOME/gz_ros2_control_ws/install/gz_ros2_control/lib:$GZ_SIM_SYSTEM_PLUGIN_PATH
-   ```
-
-6. Build this package:
-
-   ```bash
-   colcon build --packages-select darm
-   source install/setup.bash
-   ```
-
----
-
-## ▶️ Usage
-
-To launch the simulation.
-
-```bash
-#inside PX4-Autopilot:
-prime-run make px4_sitl gz_x500 
-
-#launch qgc
-
-#inside arm workspace
-prime-run ros2 launch darm trial.launch.py 
-
-#inside a serperate terminal 
-ros2 run darm thrust
-
-#launch xrce dds agent in a seperate terminal
-MicroXRCEAgent udp4 -p 8888
-
-#finally publish commands to the arm topics once everything is initialised
-ros2 topic pub /{insert controller name here}_effort_controller/commands std_msgs/msg/Float64MultiArray "{data: [0]}"
-
-
+```text
+Desired joint angles
+    → Position PD controller → desired joint velocities
+    → Velocity PID controller → desired joint efforts
+    → ros2_control → Gazebo arm joints
 ```
 
-This will:
+Joint position and velocity measurements are read from the simulation. The outer position loop runs at a configured interval of 20 ms; the inner velocity/effort loop runs at 5 ms. The output is a three-element joint-effort command.
 
-- Spawn the `x500_base` drone model with manipulator.
-- Launch ros2\_control with the configured controllers. 
+### Alternative joint-feedback controllers
 
----
+**Sources:** [`manipulator_controller.py`](src/darm/darm/manipulator_controller.py) and [`manipulator_controller_mod.py`](src/darm/darm/manipulator_controller_mod.py)
 
-## 🛠 Troubleshooting
+These files explore sliding-surface-based joint control and additional feedback terms, including effort saturation and an approximate gravity-compensation variant. They provide alternative experimental formulations for commanding the arm's joint efforts.
 
-Check the [Error.md](./Error.md) file for common issues and their fixes.
+## Arm Motion Generation
 
-Example:
+Several reference generators are included for producing repeatable or varied arm motion:
 
-| **Error**                                               | **Fix**                                                 | **Reason**                              |
-| ------------------------------------------------------- | ------------------------------------------------------- | --------------------------------------- |
-| `The supplied world name [world] is reserved`           | Rename world in SDF                                     | `world` is a reserved keyword in Gazebo |
-| `Could not load resource ... Unable to open file`       | Ensure meshes are installed under `share/darm/urdf/...` | Symlink issues during build             |
-| `Failed to load system plugin [gz_ros2_control-system]` | Export `GZ_SIM_SYSTEM_PLUGIN_PATH`                      | Plugin library path not found           |
+- [`joint_updater.py`](src/darm/darm/joint_updater.py): periodic joint-reference updates.
+- [`arm_loop.py`](src/darm/darm/arm_loop.py): repeated movement between configured joint targets.
+- [`arm_position.py`](src/darm/darm/arm_position.py): randomized joint targets with varying transition speeds.
 
----
+These motions can be used to exercise the arm or introduce time-varying manipulator configurations while evaluating the aerial vehicle's response.
 
-## 📚 Resources
+## Repository Structure
 
-- [ROS 2 Tutorials](https://docs.ros.org/en/humble/Tutorials.html)
-- [ros2\_control Documentation](https://control.ros.org/master/index.html)
-- [Gazebo Harmonic Documentation](https://gazebosim.org/docs/harmonic/)
-- [PX4 Autopilot Docs](https://docs.px4.io/main/en/)
-- [gz\_ros2\_control GitHub](https://github.com/ros-controls/gz_ros2_control)
+| Path | Purpose |
+| --- | --- |
+| [`src/darm/urdf/`](src/darm/urdf/) | Aerial-manipulator URDF/Xacro models and simulated joint interfaces |
+| [`src/darm/models/`](src/darm/models/) | Gazebo model assets, including adapted PX4/Gazebo resources |
+| [`src/darm/config/`](src/darm/config/) | Position- and effort-control configurations |
+| [`src/darm/launch/`](src/darm/launch/) | Robot-description and joint-controller launch files |
+| [`src/darm/darm/arm_effort.py`](src/darm/darm/arm_effort.py) | Cascaded joint position/velocity feedback controller |
+| [`src/darm/darm/manipulator_controller.py`](src/darm/darm/manipulator_controller.py) and [`manipulator_controller_mod.py`](src/darm/darm/manipulator_controller_mod.py) | Alternative joint-effort control experiments |
+| [`src/darm/darm/joint_updater.py`](src/darm/darm/joint_updater.py), [`arm_loop.py`](src/darm/darm/arm_loop.py), [`arm_position.py`](src/darm/darm/arm_position.py) | Joint-reference generators |
 
----
+## Build and Simulation
 
-## ✨ TODO
+The workspace uses **ROS 2 Humble, Gazebo Harmonic, `ros2_control`, and `gz_ros2_control`**, alongside a compatible PX4/Gazebo vehicle simulation. From the workspace root:
 
-- Add unit tests for controller plugins.
-- Extend manipulator control with MoveIt.
-- Automate mesh/URDF installation without symlinks.
+```bash
+colcon build --packages-select darm
+source install/setup.bash
+```
 
----
+The included launch configurations support different arm-control interfaces:
 
-## 📝 License
+```bash
+# Position-controlled three-joint arm
+ros2 launch darm trial_arm.launch.py
 
-This project is licensed under the [Apache 2.0 License](LICENSE).
+# Effort-controlled arm configuration
+ros2 launch darm trial.launch.py
+```
+
+A compatible PX4/Gazebo simulation and the required ROS/Gazebo bridges must be running separately. The selected robot model, controller type, and joint interfaces must match.
+
+## Related Repositories
+
+- [Aerial Manipulation — Project Overview](https://github.com/1shit4/aerial-manipulation-rl-control): overall research objective and linked implementations.
+- [Quadrotor Inner-Loop Control](https://github.com/1shit4/quadcopter_inner_loop_control): flight-control and disturbance-rejection experiments associated with manipulator motion.
+- [Aerial Gym Simulator](https://github.com/1shit4/aerial_gym_simulator): aerial-manipulator learning environments and controller-aware RL experiments.
+
+*Research conducted collaboratively at the Robotics Research Center, IIIT Hyderabad. PX4, Gazebo, and ROS 2 components are credited to their respective upstream projects.*
