@@ -2,7 +2,7 @@
 
 **ROS 2 and Gazebo workspace for simulating and controlling a robotic arm mounted on a quadrotor.**
 
-This repository supports the [Robust Goal-Directed Aerial Manipulation project](https://github.com/1shit4/aerial-manipulation-rl-control), which investigates coordinated vehicle–arm motion and disturbance compensation. Its focus is the **manipulator subsystem**: the robot description, simulated joint-control interfaces, joint-feedback controllers, and reference trajectories used to move the arm during aerial-manipulation experiments.
+This repository supports the [Robust Goal-Directed Aerial Manipulation project](https://github.com/ishita-chaudhary/aerial-manipulation-rl-control), which investigates coordinated vehicle–arm motion and disturbance compensation. Its focus is the **manipulator subsystem**: the robot description, simulated joint-control interfaces, joint-feedback controllers, and reference trajectories used to move the arm during aerial-manipulation experiments.
 
 ## Robot Model and Joint Interfaces
 
@@ -83,8 +83,8 @@ A compatible PX4/Gazebo simulation and the required ROS/Gazebo bridges must be r
 
 ## Related Repositories
 
-- [Aerial Manipulation — Project Overview](https://github.com/1shit4/aerial-manipulation-rl-control): overall research objective and linked implementations.
-- [Quadrotor Inner-Loop Control](https://github.com/1shit4/quadcopter_inner_loop_control): flight-control and disturbance-rejection experiments associated with manipulator motion.
-- [Aerial Gym Simulator](https://github.com/1shit4/aerial_gym_simulator): aerial-manipulator learning environments and controller-aware RL experiments.
+- [Aerial Manipulation — Project Overview](https://github.com/ishita-chaudhary/aerial-manipulation-rl-control): overall research objective and linked implementations.
+- [Quadrotor Inner-Loop Control](https://github.com/ishita-chaudhary/quadcopter_inner_loop_control): flight-control and disturbance-rejection experiments associated with manipulator motion.
+- [Aerial Gym Simulator](https://github.com/ishita-chaudhary/aerial_gym_simulator): aerial-manipulator learning environments and controller-aware RL experiments.
 
 *Research conducted collaboratively at the Robotics Research Center, IIIT Hyderabad. PX4, Gazebo, and ROS 2 components are credited to their respective upstream projects.*
